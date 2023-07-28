@@ -12,6 +12,7 @@ import xyz.xingfeng.pojo.Questions;
 import xyz.xingfeng.service.AnswersService;
 import xyz.xingfeng.service.CrawlRecordsService;
 import xyz.xingfeng.service.QuestionsService;
+import xyz.xingfeng.tool.IpPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,14 @@ public class GetShuJu implements Runnable{
     CrawlRecordsService crawlRecordsService = cxt.getBean(CrawlRecordsService.class);
     private static final Logger logger = LogManager.getLogger(GetShuJu.class);
     String name;
+    private Map ip;
+
     public GetShuJu(String name){
         this.name = name;
     }
     @Override
     public void run() {
+        ip = new IpPool().getIp();
         TieBa tieBa = new TieBa(name);
         logger.info("准备进行{}吧的爬取",name);
         ArrayList<String> tieZiId = new ArrayList<>();
@@ -53,7 +57,7 @@ public class GetShuJu implements Runnable{
                 toOverServer(s);
                 logger.info("完成对id为{}帖子的处理", s);
                 try {
-                    Thread.sleep((long) (((int) 4+Math.random()*(4)) * 1000));
+                    Thread.sleep((long) (((int) 0+Math.random()*(2)) * 1000));
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -124,5 +128,11 @@ public class GetShuJu implements Runnable{
             return false;
         }
         return true;
+    }
+
+    public static void setProperty(String Host,String Port){
+        System.setProperty("http.proxyHost", Host);
+        System.setProperty("http.proxyPort", Port);
+
     }
 }

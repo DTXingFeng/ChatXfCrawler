@@ -172,7 +172,7 @@ public class TieZi {
             }
             louPages++;
             try {
-                Thread.sleep((long) (((int) 1+Math.random()*(3)) * 1000));
+                Thread.sleep((long) (((int) 1+Math.random()*(2)) * 1000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

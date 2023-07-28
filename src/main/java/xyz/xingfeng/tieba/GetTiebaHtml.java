@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class GetTiebaHtml {
     private static final Logger logger = LogManager.getLogger(GetTiebaHtml.class);
-    String cookie = HttpConfig.COOKIE;
+//    String cookie = HttpConfig.COOKIE;
     //创建一个储存结果的string类型
     private String htmlString = "";
     String userAgent = HttpConfig.USER_AGENT;
@@ -28,7 +28,6 @@ public class GetTiebaHtml {
                 httpURLConnection.addRequestProperty("user-agent", userAgent);
                 httpURLConnection.addRequestProperty("Accept-Language", "zh-CN");
                 httpURLConnection.addRequestProperty("Charset", "UTF-8");
-                httpURLConnection.addRequestProperty("Cookie", cookie);
 
                 //发送get请求
                 httpURLConnection.setRequestMethod("GET");
@@ -46,11 +45,6 @@ public class GetTiebaHtml {
             } catch (Exception e) {
                 i++;
                 logger.error(e.toString());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
             }
         }
     }
